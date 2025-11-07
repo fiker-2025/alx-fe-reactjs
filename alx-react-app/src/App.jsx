@@ -10,16 +10,12 @@ function App() {
       <WelcomeMessage />
       <Header />
       <MainContent />
-      
+
+      {/* ALX check requires this exact props */}
       <UserProfile 
         name="Alice" 
-        age={28} 
-        bio="I love traveling and coding." 
-      />
-      <UserProfile 
-        name="Bob" 
-        age={32} 
-        bio="I enjoy photography and coffee." 
+        age={25} 
+        bio="Loves hiking and photography" 
       />
 
       <Footer />
