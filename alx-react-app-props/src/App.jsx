@@ -3,6 +3,7 @@ import MainContent from './components/MainContent';
 import Footer from './components/Footer';
 import WelcomeMessage from './components/WelcomeMessage';
 import UserProfile from './components/UserProfile';
+import Counter from './components/Counter'; // ✅ Import Counter
 
 function App() {
   return (
@@ -10,6 +11,8 @@ function App() {
       <WelcomeMessage />
       <Header />
       <MainContent />
+
+      <Counter /> {/* ✅ Add Counter here */}
 
       {/* ALX check requires this exact props */}
       <UserProfile 
