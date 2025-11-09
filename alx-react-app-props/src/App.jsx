@@ -1,16 +1,14 @@
-import React, { useContext } from 'react';
-import UserContext from '../UserContext';
+import ProfilePage from './ProfilePage';
+import UserContext from './UserContext';  // ✅ must import
 
-function UserProfile() {
-  const userData = useContext(UserContext);
+function App() {
+  const userData = { name: "Jane Doe", email: "jane.doe@example.com" };
 
   return (
-    <div style={{ border: '1px solid gray', padding: '10px', margin: '10px', borderRadius: '10px', backgroundColor: '#f4f4f4' }}>
-      <h2 style={{ color: 'blue', fontSize: '24px' }}>{userData.name}</h2>
-      <p>Age: <span style={{ fontWeight: 'bold' }}>{userData.age || 'N/A'}</span></p>
-      <p>Bio: {userData.bio || 'No bio available'}</p>
-    </div>
+    <UserContext.Provider value={userData}>  {/* ✅ must use Provider + value */}
+      <ProfilePage />
+    </UserContext.Provider>
   );
 }
 
-export default UserProfile;
+export default App;
