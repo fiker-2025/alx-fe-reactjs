@@ -1,32 +1,33 @@
-import React from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
-import { useRecipeStore } from '../recipeStore';
-import DeleteRecipeButton from './DeleteRecipeButton';
+import { useRecipeStore } from "../store/recipeStore";
+import { Link, useParams } from "react-router-dom";
+import EditRecipeForm from "./EditRecipeForm";
+import DeleteRecipeButton from "./DeleteRecipeButton";
 
 const RecipeDetails = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
-  const recipe = useRecipeStore((s) => s.recipes.find((r) => r.id === id));
+  const recipe = useRecipeStore((state) =>
+    state.recipes.find((r) => r.id === id)
+  );
 
   if (!recipe) {
-    return (
-      <div>
-        <p>Recipe not found.</p>
-        <button onClick={() => navigate(-1)} className="mt-2 px-3 py-1 border rounded">Go back</button>
-      </div>
-    );
+    return <h2>Recipe not found</h2>;
   }
 
   return (
-    <div className="p-4 border rounded bg-white">
-      <h1 className="text-2xl font-bold mb-2">{recipe.title}</h1>
-      <p className="mb-4 text-gray-800">{recipe.description}</p>
+    <div style={{ padding: "20px" }}>
+      <h1>{recipe.title}</h1>
+      <p><strong>ID:</strong> {recipe.id}</p>            {/* ← required */}
+      <p><strong>Description:</strong> {recipe.description}</p>
+      <p><strong>Ingredients:</strong> {recipe.ingredients}</p>
 
-      <div className="flex gap-2">
-        <Link to={`/recipes/${id}/edit`} className="px-3 py-1 border rounded bg-blue-500 text-white">Edit</Link>
-        <DeleteRecipeButton recipeId={id} onDeleted={() => navigate('/')} />
-        <button onClick={() => navigate(-1)} className="px-3 py-1 border rounded">Back</button>
-      </div>
+      {/* Edit Section */}
+      <EditRecipeForm recipe={recipe} />
+
+      {/* Delete Button */}
+      <DeleteRecipeButton recipeId={recipe.id} />
+
+      <br /><br />
+      <Link to="/">⬅ Back to Recipes</Link>
     </div>
   );
 };
