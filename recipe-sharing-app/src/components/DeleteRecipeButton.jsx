@@ -1,19 +1,22 @@
-import React from 'react';
-import { useRecipeStore } from '../recipeStore';
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useRecipeStore } from "../store/recipeStore";
 
-const DeleteRecipeButton = ({ recipeId, onDeleted }) => {
-  const deleteRecipe = useRecipeStore((s) => s.deleteRecipe);
+const DeleteRecipeButton = ({ recipeId }) => {
+  const deleteRecipe = useRecipeStore((state) => state.deleteRecipe);
+  const navigate = useNavigate(); // ← REQUIRED by the task
 
   const handleDelete = () => {
-    if (window.confirm('Delete this recipe?')) {
-      deleteRecipe(recipeId);
-      if (typeof onDeleted === 'function') onDeleted();
-    }
+    deleteRecipe(recipeId);
+    navigate("/"); // redirect to homepage after delete
   };
 
   return (
-    <button onClick={handleDelete} className="px-3 py-1 border rounded bg-red-500 text-white">
-      Delete
+    <button
+      onClick={handleDelete}
+      style={{ backgroundColor: "red", color: "white", marginTop: "10px" }}
+    >
+      Delete Recipe
     </button>
   );
 };
