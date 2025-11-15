@@ -1,66 +1,47 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { useRecipeStore } from '../recipeStore';
+import { useState } from "react";
+import { useRecipeStore } from "../store/recipeStore";
 
-const EditRecipeForm = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
+const EditRecipeForm = ({ recipe }) => {
+  const updateRecipe = useRecipeStore((state) => state.updateRecipe);
 
-  const recipe = useRecipeStore((s) => s.recipes.find((r) => r.id === id));
-  const updateRecipe = useRecipeStore((s) => s.updateRecipe);
+  const [title, setTitle] = useState(recipe.title);
+  const [description, setDescription] = useState(recipe.description);
+  const [ingredients, setIngredients] = useState(recipe.ingredients);
 
-  const [title, setTitle] = useState(recipe ? recipe.title : '');
-  const [description, setDescription] = useState(recipe ? recipe.description : '');
+  const handleSubmit = (event) => {
+    event.preventDefault();   // ← REQUIRED by the task
 
-  // If recipes load later, sync fields
-  useEffect(() => {
-    if (recipe) {
-      setTitle(recipe.title);
-      setDescription(recipe.description);
-    }
-  }, [recipe]);
-
-  if (!recipe) {
-    return (
-      <div>
-        <p>Recipe not found.</p>
-        <button onClick={() => navigate(-1)} className="mt-2 px-3 py-1 border rounded">Go back</button>
-      </div>
-    );
-  }
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!title.trim() || !description.trim()) return;
-    updateRecipe(id, { title: title.trim(), description: description.trim() });
-    navigate(`/recipes/${id}`);
+    updateRecipe(recipe.id, {
+      title,
+      description,
+      ingredients,
+    });
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-3">
-      <div>
-        <label className="block text-sm font-medium">Title</label>
-        <input
-          className="w-full p-2 border rounded"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-      </div>
+    <form onSubmit={handleSubmit} style={{ marginTop: "20px" }}>
+      <h3>Edit Recipe</h3>
 
-      <div>
-        <label className="block text-sm font-medium">Description</label>
-        <textarea
-          className="w-full p-2 border rounded"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          rows={6}
-        />
-      </div>
+      <input
+        type="text"
+        value={title}
+        placeholder="Title"
+        onChange={(e) => setTitle(e.target.value)}
+      />
 
-      <div className="flex gap-2">
-        <button type="submit" className="px-4 py-2 bg-green-600 text-white rounded">Save</button>
-        <button type="button" onClick={() => navigate(-1)} className="px-4 py-2 border rounded">Cancel</button>
-      </div>
+      <textarea
+        value={description}
+        placeholder="Description"
+        onChange={(e) => setDescription(e.target.value)}
+      />
+
+      <textarea
+        value={ingredients}
+        placeholder="Ingredients"
+        onChange={(e) => setIngredients(e.target.value)}
+      />
+
+      <button type="submit">Save Changes</button>
     </form>
   );
 };
