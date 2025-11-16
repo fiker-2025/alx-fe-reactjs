@@ -1,39 +1,38 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import AddRecipeForm from './components/AddRecipeForm';
+// src/App.jsx
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import RecipeList from './components/RecipeList';
+import AddRecipeForm from './components/AddRecipeForm';
 import RecipeDetails from './components/RecipeDetails';
-import EditRecipeForm from './components/EditRecipeForm';
-
-const Home = () => (
-  <div>
-    <AddRecipeForm />
-    <RecipeList />
-  </div>
-);
+import FavoritesList from './components/FavoritesList';
+import RecommendationsList from './components/RecommendationsList';
+import SearchBar from './components/SearchBar';
 
 function App() {
   return (
-    <BrowserRouter>
-      <div className="min-h-screen bg-gray-100 p-6">
-        <header className="max-w-3xl mx-auto mb-6 flex items-center justify-between">
-          <Link to="/" className="text-2xl font-bold">Recipe Sharing App</Link>
-          <nav>
-            <Link to="/" className="px-3 py-1 border rounded">Home</Link>
-          </nav>
-        </header>
-
-        <main className="max-w-3xl mx-auto">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/recipes/:id" element={<RecipeDetails />} />
-            <Route path="/recipes/:id/edit" element={<EditRecipeForm />} />
-            {/* Optionally add 404 route */}
-            <Route path="*" element={<p>Page not found</p>} />
-          </Routes>
-        </main>
+    <Router>
+      <div>
+        <h1>Recipe Sharing App</h1>
+        <SearchBar />
+        <nav>
+          <Link to="/">Home</Link> | <Link to="/favorites">Favorites</Link> |{' '}
+          <Link to="/recommendations">Recommendations</Link>
+        </nav>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <AddRecipeForm />
+                <RecipeList />
+              </>
+            }
+          />
+          <Route path="/recipes/:recipeId" element={<RecipeDetails />} />
+          <Route path="/favorites" element={<FavoritesList />} />
+          <Route path="/recommendations" element={<RecommendationsList />} />
+        </Routes>
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 
