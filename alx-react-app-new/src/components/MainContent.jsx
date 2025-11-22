@@ -1,17 +1,12 @@
 function MainContent() {
   return (
-    <main
-      style={{
-        backgroundColor: "limegreen",
-        color: "white",
-        padding: "20px",
-        position: 'relative',
-        clipPath:
-          "polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%)"
-      }}
-    >
-      <p>I love to visit New York, Paris, and Tokyo.</p>
+    <main style={{ padding: '20px', backgroundColor: '#eef2f3', minHeight: '200px' }}>
+      <h2 style={{ color: '#333', marginBottom: '15px' }}>Welcome to My Page</h2>
+      <p style={{ lineHeight: '1.6', fontSize: '16px' }}>
+        I love to visit New York, Paris, and Tokyo.
+      </p>
     </main>
   );
 }
+
 export default MainContent;

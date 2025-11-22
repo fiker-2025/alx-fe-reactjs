@@ -1,20 +1,21 @@
-# Recipe Sharing Application
+# alx-fe-reactjs
 
-A React-based application for sharing and discovering recipes. Users can add, edit, delete, and favorite recipes, as well as receive personalized recommendations based on their preferences.
+---
 
-## Features
+## 📜 License
 
-- **Add, Edit, and Delete Recipes:** Users can manage recipes with full CRUD functionality.
-- **Search and Filter:** Advanced search and filtering capabilities to easily find recipes.
-- **Favorites:** Users can mark recipes as favorites for quick access.
-- **Personalized Recommendations:** Get recipe recommendations based on your favorite recipes.
-- **Responsive Design:** A user-friendly interface that works on various devices.
+This project is licensed under the **MIT License**.  
+See [LICENSE](LICENSE) for details.
 
-## Technologies Used
+---
 
-- **React:** A JavaScript library for building user interfaces.
-- **Zustand:** A small, fast, and scalable state management solution.
-- **React Router:** Declarative routing for React applications.
-- **Vite:** A modern frontend build tool that significantly improves the frontend development experience.
+## 👨‍💻 Author
 
+**Susan Kimemia**  
+- 🐙 GitHub: [Susan](https://github.com/susan-kimemia)  
+- ✉️ Email: susankimemia111@gmail.com
 
+---
+
+### 🎯 Final Note
+This repo is meant to **learn reactJS**. 

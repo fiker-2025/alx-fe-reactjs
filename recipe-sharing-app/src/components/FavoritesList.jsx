@@ -1,25 +1,26 @@
-// src/components/FavoritesList.jsx
-import { useRecipeStore } from '../recipeStore';
+import React from 'react';
+import { useRecipeStore } from '../store/recipeStore';
+import { Link } from 'react-router-dom';
 
 const FavoritesList = () => {
-  const favorites = useRecipeStore((state) =>
-    state.favorites
-      .map((id) => state.recipes.find((recipe) => recipe.id === id))
-      .filter(Boolean) // Filter out any undefined values in case a recipe is not found
-  );
+  const recipes = useRecipeStore((state) => state.recipes);
+  const favorites = useRecipeStore((state) => state.favorites);
+
+  const favoriteRecipes = recipes.filter((r) => favorites.includes(r.id));
 
   return (
-    <div>
-      <h2>My Favorites</h2>
-      {favorites.length > 0 ? (
-        favorites.map((recipe) => (
-          <div key={recipe.id}>
-            <h3>{recipe.title}</h3>
-            <p>{recipe.description}</p>
+    <div className="mt-6">
+      <h2 className="text-xl font-bold mb-2">My Favorites</h2>
+      {favoriteRecipes.length > 0 ? (
+        favoriteRecipes.map((recipe) => (
+          <div key={recipe.id} className="p-3 border rounded mb-2">
+            <Link to={`/recipe/${recipe.id}`} className="text-blue-500 hover:underline">
+              {recipe.title}
+            </Link>
           </div>
         ))
       ) : (
-        <p>No favorites yet!</p>
+        <p>No favorite recipes yet.</p>
       )}
     </div>
   );
